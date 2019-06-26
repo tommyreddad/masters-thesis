@@ -1,0 +1,158 @@
+\chapter{Introduction}\chlabel{intro}
+%\nonumchapter{Introduction}\label{ch:intro}
+
+Techniques from the study of information theory have long been used to
+produce original or elementary proofs of results in discrete
+mathematics and computer science. Encoding arguments, now commonly
+framed under the so-called incompressibility method, sprouted from the
+study of information complexity as introduced by Kolmogorov,
+Solomonoff, and Chaitin. This technique has been fruitful in recent
+history, perhaps most famously being used to give the first nontrivial
+lower bound for the average running time of Shellsort, and for
+providing a constructive version of the Lov\'{a}sz local
+lemma~\cite{buhrman:applications, buhrman:applications2,
+  jiang.li.vitanyi:shellsort, moser:locallemma, vitanyi:analysis}.
+
+An encoding argument transforms the problem of upper-bounding the
+probability of some event into the problem of devising short encodings
+for elements of this event, typically through the Incompressibility
+Theorem of Kolmogorov complexity. In many cases, it is advantageous to
+use an encoding argument to solve this kind of problem, rather than
+the traditional probabilistic analysis. Indeed, encoding arguments are
+generally intuitive for computer scientists, and their strength relies
+only on the algorithmic construction of a code, rather than on a
+careful understanding of probability theory. Moreover, encoding
+arguments give strong results, and the probability in question often
+decreases exponentially in the parameter of interest. Such results can
+otherwise be difficult to obtain without relying on concentration
+inequalities in probability.
+
+We give a simple example illustrating the basic technique of
+encoding. Since we are overwhelmingly concerned with binary encoding,
+we will agree now that the base of logarithms in $\log x$ is $2$,
+except when explicitly stated otherwise.
+
+Define a \emph{run of $t$ ones} in a binary string $x_1 \cdots x_n$ to
+be a sequence of $t$ bits $x_i = \cdots = x_{i + t - 1} = 1$ for some
+$i \in \{1, \ldots, n - t + 1\}$. Note that $1 \leq i \leq n$. We will
+show that a uniformly random bit string is unlikely to contain a run
+of length significantly greater than $\log n$.
+\begin{prop}\proplabel{binary-runs}
+  A uniformly random bit string $x_1 \cdots x_n$ contains a run of at
+  least $\lceil \log n \rceil + s$ ones with probability at most
+  $2^{-s}$.
+\end{prop}
+\begin{proof}
+  Suppose that $x_1 \cdots x_n$ contains a run of $t \geq \lceil \log
+  n \rceil + s$ ones. By definition, there exists some $i \in \{1,
+  \ldots, n - t + 1\}$ such that $x_i = \cdots = x_{i + t - 1} =
+  1$. Therefore, we can represent any such string by writing the value
+  $i - 1$ in binary, followed by the bits $x_1, \ldots, x_{i - 1},
+  x_{i + t}, \ldots, x_n$. Since $0 \leq i \leq n - 1$, then the
+  binary encoding of the value of $i - 1$ uses $\lfloor \log (n - 1)
+  \rfloor + 1 = \lceil \log n \rceil$ bits.
+
+  In total, the given representation uses
+  \[
+  \lceil \log n \rceil + n - t \leq n - s
+  \]
+  bits, by the choice of $t$, and allows us to represent any $n$-bit
+  binary string having a run of $t$ or more ones. Therefore, the
+  number of $n$-bit binary strings with a run of $t$ ones is at most
+  $2^{n - s}$, so the probability that a uniformly random $n$-bit
+  binary string contains a run of $t$ ones is at most $2^{n - s}/2^n =
+  2^{-s}$, as required.
+\end{proof}
+
+The proof of \propref{binary-runs} is basic, yet still it serves as a
+typical example of an encoding argument. The general approach is as
+follows: we give an encoding of the elementary events which we care
+about; usually, the objects we encode are forced to have a relatively
+large substructure which becomes easy to describe. Accordingly, we
+devise a code which begins with a concise description of this
+substructure, and then a straightforward encoding of the remaining
+information which cannot be deduced from this substructure. The fact
+that this encoding is short proves that there are not very many such
+events, which upper bounds their probability.
+
+The result of \propref{binary-runs} is loose; we can show, appealing
+directly to probability, that a uniformly random bit string contains a
+run of length at least $\log n + s$ with probability at most
+$2^{-s}$. In \chref{el}, we will show how our encoding argument can be
+refined to recover exactly the same result.
+
+\section{Contributions}
+
+Though the study of Kolmogorov complexity is in itself interesting, it
+carries a certain amount of excess baggage since it makes reference to
+a description language, such as a Turing machine, and an input for
+this language. Neither of these is necessary to develop an encoding
+argument. Accordingly, in this thesis, we present a uniform encoding
+lemma as a replacement for the Incompressibility Theorem, and basic
+view of the theory which simplifies the development of encoding
+arguments, completely ignoring Kolmogorov complexity.
+
+Moreover, the Incompressibility Theorem used in Kolmogorov complexity
+encoding arguments only immediately serves as an encoding lemma for
+uniform input distributions. We present more general versions of our
+encoding lemma, serving for non-uniform input distributions as well.
+
+We present several encoding arguments developed using these tools,
+with an emphasis on the study of random graphs and hashing
+algorithms. Though no new results are obtained, we give several
+original proofs of known results through encoding.
+
+\section{Overview}
+
+\chref{background} first presents the preliminary theory required to
+understand encoding arguments. We define prefix-free codes and give
+some useful specific prefix-free codes. We introduce the concept of
+information entropy, how it relates to information complexity, and
+briefly describe the Kolmogorov complexity approach to
+incompressibility in encoding arguments.
+
+In \chref{uel}, we introduce the uniform encoding lemma, which is the
+main tool used in our encoding arguments, and we describe several
+applications. We first show how encoding can be used to study
+permutations and the structure of random binary search trees. We then
+give arguments to study the performance of different hashing
+algorithms: the simple balls-in-urns model, linear probing, cuckoo
+hashing, and 2-choice hashing. We also prove the existence of
+expanders.
+
+\chref{nuel} begins by presenting an encoding lemma for non-uniform
+input distributions. Using this, we give several properties of the
+Erd\H{o}s-R\'{e}nyi random graph. We also discuss percolation on the
+torus grid graph.
+
+Finally, in \chref{el}, we show that the results of \chref{uel} and
+\chref{nuel} can be refined by ignoring the integral constraint on
+codeword lengths and simply relying on a condition of Kraft's
+inequality to develop tighter encoding arguments. This allows us to
+develop encoding arguments by thinking in terms of codes, but without
+sacrificing any precision; for example, it allows us to remove the
+ceiling from the statement and proof of \propref{binary-runs}. We also
+use this approach to prove a result typically known as Chernoff's
+bound.
+
+%The uniform and non-uniform encoding lemmas, the major tools used in
+%our encoding arguments, are then presented in Chapter
+%\ref{ch:encoding}.
+
+%In Chapter \ref{ch:applications}, we describe several applications of
+%encoding arguments. We first show how encoding can be used to study
+%permutation statistics and the structure of random binary search
+%trees. We then give arguments to study the performance of different
+%hashing algorithms: the simple balls in urns model, linear probing,
+%cuckoo hashing, and 2-choice hashing. Finally, we give more
+%applications to the theory of random graphs, proving the existence of
+%expanders, and giving some properties of the Erd\H{o}s-R\'{e}nyi
+%random graph.
+
+In accordance with the elementary nature of encoding arguments, we aim
+to make all proofs in this thesis easily accessible to someone with
+only a basic understanding of probability theory.
+
+
+
+

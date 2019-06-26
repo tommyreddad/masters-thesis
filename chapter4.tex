@@ -1,0 +1,264 @@
+\chapter{Encoding with Kraft's Condition}\chlabel{el}
+
+We have seen how \lemref{uel} and \lemref{nuel} can be used to prove
+well-known bounds in intuitive and unexpected manners, within some
+constant factor or some lower order term. However, when exactness is
+required, it may be that neither suffices, even if
+\lemref{incremental-code} is used, due to the discrete integral
+constraint on codeword lengths, as shown in
+\propref{binary-runs}. Instead, we will use a continuous analogue of
+\lemref{nuel} due to Mulzer.
+
+Observe that neither \lemref{uel}, \lemref{nuel}, nor any application
+of either of these results in \chref{uel} and \chref{nuel} requires
+the specification of any prefix-free code; we know, by construction,
+that every such code is prefix-free, but we could also deduce from
+\lemref{kraft-inequality} that, since our described codes satisfy
+Kraft's condition, a prefix-free code with the same codeword lengths
+exists. Instead, codeword lengths satisfying Kraft's condition
+suffice. Indeed, we will show how such codeword lengths actually need
+not be integers; this refinement will allow us to tighten
+\lemref{nuel}, thereby tightening all of the results established
+throughout the previous chapters.
+
+Let $[0, \infty]$ denote the set of extended non-negative real
+numbers, \emph{i.e.}~the usual open interval $[0, \infty)$, including
+the formal symbol $\infty$, satisfying all real arithmetic operations
+and all usual extended operations. In particular, we have that
+$x + \infty = \infty$ for all $x \in [0, \infty]$ and
+$2^{-\infty} = 0$. We will also allow that $1/0 = \infty$.
+
+\begin{lem}[Mulzer~\cite{mulzer:encoding}]\lemlabel{el}
+  Let $\ell : \Omega \to [0, \infty]$ satisfy Kraft's condition, and
+  let $x \in \Omega$ be chosen with probability $p_x$. Then, for any
+  $s \geq 0$,
+  \[\Pr\left[\,\ell(x) \leq \log (1/p_x) - s\,\right] \leq 2^{-s}.\]
+\end{lem}
+\begin{proof}
+  The proof is identical to that of \lemref{nuel}.
+\end{proof}
+
+The sum of functions $\ell : \Omega \to [0, \infty]$ and $\ell' :
+\Omega' \to [0, \infty]$ is the function $\ell + \ell' : \Omega \times
+\Omega' \to [0, \infty]$, where $(\ell + \ell') (x, y) = \ell(x) +
+\ell'(y)$. Note that for any partial codes $C : \Omega \to \{0, 1\}^*
+\cup \{\bot\}, C' : \Omega' \to \{0, 1\}^* \cup \{\bot\}$, any $x \in
+\Omega$, and any $y \in \Omega'$,
+\[(|C| + |C'|)(x, y) = |C(x)| + |C'(y)| = |(C \cdot C')|(x, y).\]
+In other words, the sum of these functions describes the length of
+codewords in composed codes.
+
+\begin{lem}\lemlabel{composition-tight}
+  If $\ell : \Omega \to [0, \infty]$ and $\ell' : \Omega' \to [0,
+  \infty]$ satisfy Kraft's condition, then so does $\ell + \ell'$.
+\end{lem}
+\begin{proof}
+  Kraft's condition still holds:
+  \[\sum_{(x, y) \in \Omega \times \Omega'} 2^{-(\ell + \ell')(x, y)} = \sum_{x
+    \in \Omega} \sum_{y \in \Omega'} 2^{-\ell(x) - \ell'(y)} = \sum_{x
+    \in \Omega} 2^{-\ell(x)} \sum_{y \in \Omega'} 2^{-\ell'(y)} \leq
+  1. \qedhere\]
+\end{proof}
+This is analogous to the fact that the composition of prefix-free
+codes is prefix-free. This result renders \lemref{incremental-code}
+obsolete, and now nothing is wasted in the composition of codes.
+
+\begin{lem}\lemlabel{fixed-length-tight}
+  For any probability density $p : \Omega \to [0, 1]$, the function
+  $\ell : \Omega \to [0, \infty]$ with $\ell(x) = \log (1/p_x)$
+  satisfies Kraft's condition.
+\end{lem}
+\begin{proof}
+  \[\sum_{x \in \Omega} 2^{-\ell(x)} = \sum_{x \in \Omega} 2^{-\log (1/p_x)} =
+  \sum_{x \in \Omega} p_x = 1. \qedhere\]
+\end{proof}
+This now allows us to refine every instance of a fixed-length code and
+every instance of a Shannon-Fano code used while encoding so that,
+again, nothing is wasted. Note that these lengths now match Shannon's
+lower bound from \thmref{noiseless-coding}.
+
+We now give a tight notion corresponding to Elias $\omega$-codes.
+\begin{thm}[Beigel~\cite{beigel:elias}]\thmlabel{elias-tight}
+  Fix some $0 < \eps < e - 1$. Let $\ell : \N \to [0, \infty]$ have
+  \[\ell(i) = \log i + \log \log i + \cdots + \underbrace{\log \cdots \log}_{\text{$\log^* i$ times}} i -
+  (\log \log (e - \eps)) \log^* i + O(1).\]
+  %\[\ell(i) = \log i + \log^{(2)} i + \ldots + \log^{(\log^* i)} i -
+  %\log \log (e - \eps) \log^* i + O(1).\]
+  %\[\ell(i) = \log i + \log^{(2)} i + \ldots + \log^{(\log^* i)} i +
+  %\log \left(\frac{1}{1 - \ln 2}\right).\]
+  Then, $\ell$ satisfies Kraft's condition.
+\end{thm}
+\begin{thm}[Beigel~\cite{beigel:elias}]
+  The function $\ell : \N \to [0, \infty]$ with
+  \[\ell(i) = \log i + \log \log i + \cdots + \underbrace{\log \cdots \log}_{\text{$\log^* i$ times}} i -
+  (\log \log e) \log^* i + c\]
+  does not satisfy Kraft's condition for any choice of the constant
+  $c$.
+\end{thm}
+
+Recall how the result of \propref{binary-runs} carried an artifact of
+binary encoding. Using our new tools, we can now refine this and
+recover the exact result.
+\begin{prop}
+  A uniformly random bit string $x_1 \cdots x_n$ contains a run of at
+  least $\log n + s$ ones with probability at most $2^{-s}$.
+\end{prop}
+\begin{proof}
+  Let $\ell : \{0, 1\}^n \to [0, \infty]$ be such that if $x$ contains
+  a run of $t \geq \log n + s$ ones, then $\ell(x) = \log n + n - t$,
+  and otherwise $\ell(x) = \infty$. We will show that $\ell$ satisfies
+  Kraft's condition.
+
+  Recall that a binary string $x = x_1 \cdots x_n$ is said to contain
+  a run of $t$ ones if there exists some
+  $i \in \{1, \ldots, n - t + 1\}$ such that
+  $x_i = \cdots = x_{i + t - 1} = 1$.
+
+  Let the function $f : \{1, \ldots, n - t + 1\} \to [0, \infty]$ have
+  $f(i) = \log n$ for all $i$, and
+  $g : \{0, 1\}^{n - t} \to [0, \infty]$ have $g(x) = n - t$ for all
+  $x$. Both of these functions satisfy Kraft's condition by
+  \lemref{fixed-length-tight}. By \lemref{composition-tight}, so does
+  the function
+  \begin{align*}
+    h = f + g : \{1, \ldots, n - t + 1\} \times \{0, 1\}^{n - t} &\to
+    [0, \infty],
+  \end{align*}
+  where $h(i, x) = \log n + n - t$ for all $i$ and $x$. Crucially,
+  each element of the set
+  $\{1, \ldots, n - t + 1\} \times \{0, 1\}^{n - t}$ corresponds to an
+  $n$-bit binary string containing a run of $t$ ones: the element
+  $(i, x) \in \{1, \ldots, n - t + 1\} \times \{0, 1\}^{n - t}$, where
+  $x = x_1 \cdots x_{n - t}$, corresponds to the binary string
+  \[x_1 \cdots x_{i - 1} \underbrace{1 1 \cdots 1}_{\text{$t$ times}} x_i \cdots x_{n - t}.\]
+  Therefore, $\ell$ satisfies Kraft's condition. By our choice of
+  $t$, we have that $\ell(x) \leq n - s$ if and only if $x$ contains a
+  run of $t$ ones. We finish by applying \lemref{el}.
+  %Therefore, we can
+  %represent any such string by writing the value $i$ in binary,
+  %followed by the bits
+  %$x_1, \ldots, x_{i - 1}, x_{i + t}, \ldots, x_n$. This
+  %representation uses
+  %\[\ceil{\log n} + n - t \leq n - s\]
+  %bits, by choice of $t$, and allows us to represent any $n$-bit
+  %binary string having a run of $t$ or more ones. Therefore, the
+  %number of $n$-bit binary strings with a run of $t$ ones is at most
+  %$2^{n - s}$, so the probability that a uniformly random $n$-bit
+  %binary string contains a run of $t$ ones is at most
+  %$2^{n - s}/2^n = 2^{-s}$, as required.
+\end{proof}
+
+It is not hard to see how \lemref{el}, \lemref{composition-tight},
+\lemref{fixed-length-tight}, and \thmref{elias-tight} can be used to
+reframe and refine every encoding argument presented in \chref{uel}
+and \chref{nuel}, just as we did in the proof above.
+
+%Given some set $X$, we will say that a function $w : X \to [0, 1]$ is
+%a \emph{weight function}. Moreover, if
+%\[\sum_{x \in X} w(x) \leq 1,\]
+%then $w$ is called \emph{valid}. We can see the above inequality is a
+%continuous analogue of \lemref{kraft-inequality}, where if each
+%$\log (1/w(x))$ were an integer, then $w$ would describe a prefix-free
+%code. It is not surprising then that valid weight functions carry some
+%of the properties of prefix-free codes.
+
+%\begin{lem}[Mulzer \cite{mulzer:encoding}]\lemlabel{cnuel}
+%  Let $w : X \to [0, 1]$ be a valid weight function, and let $x \in X$
+%  be chosen with probability $p_x$. Then, for any $s \geq 1$,
+%  \[\Pr[w(x) \geq p_x s] \leq \frac{1}{s}.\]
+%\end{lem}
+%\begin{proof}
+%  Let $Z = \{x \in X : w(x) \geq p_x s\}$. Then
+%  \begin{align*}
+%    \Pr[w(x) \geq p_x s] = \sum_{x \in Z} p_x \leq \sum_{x \in Z} p_x \frac{w(x)}{p_x s} \leq \frac{1}{s} \sum_{x \in Z} w(x) \leq \frac{1}{s},
+%  \end{align*}
+%  since $w(x)/p_x s \geq 1$ for any $x \in Z$, and since $w$ is a
+%  valid weight function.
+%\end{proof}
+
+%\lemref{nuel} for prefix-free codes follows as an immediate corollary,
+%choosing $w(x) = 2^{-|C(x)|}$, which is a valid weight function by
+%\lemref{kraft-inequality}.
+
+\section{Chernoff Bound}\seclabel{chernoff}
+
+The following proof is due to Mulzer, and serves as a refinement to an
+encoding argument given by Devroye, Lugosi, and Morin, which only used
+\lemref{nuel} instead of the tight framework developed in this
+chapter, and thus was imprecise.
+
+\begin{thm:chernoff}[Additive Chernoff Bound~\cite{mulzer:encoding}]\thmlabel{chernoff}
+  Let $B$ be a $\text{Binomial}(n, p)$ random variable. Then
+  \[
+  \Pr[B \leq (p - t)n] \leq 2^{-n D(p - t \| p)}
+  \]
+  where
+  \[D(p \| q) = p \log \frac{p}{q} + (1 - p) \log \frac{1 - p}{1 -
+    q}\]
+  is the \emph{Kullback-Leibler divergence} or \emph{relative entropy}
+  between Bernoulli random variables with parameters $p$ and $q$.
+\end{thm:chernoff}
+\begin{proof}
+  By definition, $B = \sum_{i = 1}^n x_i$ for independent
+  $\text{Bernoulli}(p)$ random variables $x_1, \ldots, x_n$, so $B =
+  n_1(x)$ for $x = x_1 \cdots x_n$. We are interested in encoding the
+  string $x \in \{0, 1\}^n$.
+
+  Informally, we encode $x$ using a Shannon-Fano code with parameter
+  $p - t$. The result of \lemref{fixed-length-tight} allows us to
+  ignore the ceiling in the lengths of these codewords. In other
+  words, we are interested in the function
+  $\ell : \{0, 1\}^n \to [0, \infty]$ with
+  \[
+  \ell(x) = n_1(x) \log \frac{1}{p - t} + (n - n_1(x)) \log \frac{1}{1 - p + t} .
+  \]
+  Now, $x$ occurs with probability exactly
+  $p_x = p^{n_1(x)} (1 - p)^{n - n_1(x)}$, so
+  \begin{align*}
+    \ell(x) &= \log(1/p_x) + n_1(x) \log \frac{p}{p - t} + (n - n_1(x)) \log \frac{1 - p}{1 - p + t} \\
+    &= \log (1/p_x) + n_1(x) \log \left(1 + \frac{t}{p - t}\right) + (n_1(x) - n) \log \left(1 + \frac{t}{1 - p}\right) ,
+  \end{align*}
+  and $\ell(x)$ increases as a function of $n_1(x)$. Therefore, if
+  $n_1(x) \le (p - t)n$, then
+  \begin{align*}
+    \ell(x) &\le \log (1/p_x) + n (p - t) \log \frac{p}{p - t} + n (1 - p + t) \log \frac{1 - p}{1 - p + t} \\
+            &= \log (1/p_x) - n D(p - t \| p) .
+  \end{align*}
+  The Chernoff bound is obtained by applying \lemref{el}.
+%  As in \remref{non-uniform-binary-strings}, $x$ occurs with
+%  probability exact $p^{n_1(x)} (1 - p)^{n - n_1(x)}$. Fix some
+%  $t \geq 0$. Define the weight function $w: \{0, 1\}^n \to [0, 1]$ as
+%  \[w(x) = (p + t)^{n_1(x)} (1 - p - t)^{n - n_1(x)}.\]
+%  Then, $w$ is valid, since $w(x)$ is the probability that $x$ is
+%  chosen if each bit is set independently with probability $p +
+%  t$. Moreover,
+%  \begin{align*}
+%    \frac{w(x)}{p_x} & = \left(\frac{p + t}{p}\right)^{n_1(x)}
+%  \left(\frac{1 - p - t}{1 - p}\right)^{n - n_1(x)} \\
+%    & = \left(1 + \frac{t}{p}\right)^{n_1(x)} \left(1 + \frac{t}{1 - p - t}\right)^{n_1(x) - n},
+%  \end{align*}
+%  so $w(x)/p_x$ increases as a function of $n_1(x)$. Therefore, if
+%  $n_1(x) \geq (p + t)n$, then
+%  \[\frac{w(x)}{p_x} \geq \left[\left(\frac{p + t}{p}\right) \left(
+%      \frac{1 - p - t}{1 - p}\right)^{1 - p - t}\right]^n = 2^{n D(p +
+%    t \| p)}.\]
+%  Since $w$ is valid, we apply \lemref{cnuel}, and
+%  \begin{align*}
+%    \Pr[B \geq (p + t)n] & = \Pr[n_1(x) \geq (p + t)n] \\
+%                         & \leq \Pr[w(x) \geq p_x 2^{n D(p + t \| p)}] \\
+%                         & \leq 2^{-n D(p + t \| p)},
+%  \end{align*}
+%  as desired.
+%
+  %For the second inequality, we reproduce a standard argument. Define
+  %$y_i = 1 - x_i$, and set $B' = \sum_{i = 1}^n y_i = n - B$. $B'$ is
+  %a $\text{Binomial}(n, 1 - p)$ random variable. Then,
+  %\begin{align*}
+  %  \Pr[B' \leq (1 - p - t)n] & = \Pr[n - B \leq (1 - p - t)n] \\
+  %                            & = \Pr[B \geq (p + t)n] \\
+  %                            & \leq 2^{-n D(p + t \| p)}
+  %\end{align*}
+  %by applying the first Chernoff bound. Since
+  %$D(p \| q) = D(1 - p \| 1 - q)$ for any $p$ and $q$, we obtain that
+  %\[\Pr[B \leq (p - t)n] \leq 2^{-n D(p - t \| p)}. \qedhere\]
+\end{proof}

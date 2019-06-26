@@ -1,0 +1,134 @@
+\chapter{Conclusion}\chlabel{conclusion}
+%\nonumchapter{Conclusion}\label{ch:conclusion}
+
+\section{Contributions}
+
+We have described a simplified method for producing encoding
+arguments. Typically, one would invoke the incompressibility method
+after developing some of the theory of Kolmogorov complexity. Our
+technique requires only a basic understanding of prefix-free codes and
+one simple lemma. We are also the first to suggest a simple and tight
+manner of encoding using only Kraft's condition with real-valued
+codeword lengths. In this light, we posit that there is no reason to
+develop an encoding argument through the incompressibility method: our
+uniform encoding lemma from \chref{uel} is simpler, the non-uniform
+encoding lemma from \chref{nuel} is more general, and our technique
+from \chref{el} is less wasteful. Indeed, though it would be easy to
+state and prove our non-uniform encoding lemma in the setting of
+Kolmogorov complexity, it seems as if the general encoding lemma from
+\chref{el} only can exist in our simplified framework.
+
+%Using these techniques, we produced several applications of encoding
+%arguments to the study of random permutations, the running time of
+%several different hashing algorithms, and the properties of random
+%graphs. Though no original result is obtained, we gave several new
+%simple proofs of previously established results.
+
+Using our encoding lemmas, we gave original proofs for several
+previously established results. Specifically, we showed the following:
+\begin{itemize}
+%\item the longest ascending run in a uniformly random permutation has
+%  length at most $(e + o(1)) \sqrt{n}$ with high probability;
+\item the number of records in a uniformly random permutation is
+  $O(\log n)$ with high probability;
+\item the height of the binary search tree built from the sequential
+  insertion of a uniformly random permutation of $n$ integers is
+  $O(\log n)$ with high probability;
+\item searching in the balls-in-urns model for hashing takes time
+  $O(\log n/\log \log n)$ with high probability;
+\item linear probing succeeds in $O(1)$ expected time;
+\item any operation in 2-choice hashing takes time $O(\log \log n)$
+  with high probability;
+\item a connectivity threshold in the Erd\H{o}s-R\'{e}nyi random
+  graph;
+\item a threshold for small components in the Erd\H{o}s-R\'{e}nyi
+  random graph;
+\item a strong threshold for triangle-freeness in the
+  Erd\H{o}s-R\'{e}nyi random graph;
+\item a certain random bipartite graph is an expander with high
+  probability;
+\item percolation occurs in random dense subgraphs of the torus.
+\end{itemize}
+
+
+\section{Future Work and Open Problems}
+
+Due to the nature of our research, there are countless avenues for
+future work. Any result bounding the probability of an event can be
+trivially rephrased as an encoding argument; the real question is
+whether or not an intuitive encoding argument exists.
+
+Some of our encoding arguments sacrifice tight constants. Our first
+group of open problems focuses on these:
+\begin{itemize}
+%\item We showed that the length of the longest ascending run in a
+%  uniformly random permutation is at most $(e + o(1)) \sqrt{n}$ with
+%  high probability. We know, instead, that it is concentrated around
+%  $2 \sqrt{n}$ with high probability. The length of ascending runs in
+%  a permutation is well captured by Young tableaux via the
+%  Robinson-Schensted correspondence~\cite{romik:subsequence}. Indeed,
+%  it is through the study of Young tableaux that the length of the
+%  longest ascending run was first understood. Perhaps it is then
+%  possible to refine the constant factor in our proof by encoding
+%  Young tableaux instead;
+
+\item We showed that a uniformly random permutation has at most $c
+  \log n$ records with high probability only for $c > 2$. We know that
+  the number of records in such a permutation is instead concentrated
+  around $\ln n + O(1)$~\cite{devroye:records}. Using an extended
+  argument, we then showed that a random binary search tree has height
+  at most $c \log n$ with probability $1 - O(1/n)$ for $c =
+  8.12669...$; we know, in fact, that the height of such a tree is
+  instead concentrated around $\alpha \log n$ for $\alpha =
+  2.98820...$~\cite{reed:height}. We are interested in whether or not
+  these gaps can be closed through encoding. Perhaps if the gap for
+  records can be closed, then so can the gap for binary search tree
+  height;
+
+\item It is known that linear probing hash tables of size $cn$ achieve
+  constant expected search time for $c > 1$~\cite{morin:open}.
+  Unfortunately, our encoding proof requires that $c > e$; it is yet
+  unclear if the extraneous $e$ factor is retained only as an artifact
+  of encoding, or if some intuitive refinement exists;
+
+\item Our analysis of 2-choice hashing also only works for hash tables
+  of size $cn$ for $c > e$, while $c > 0$ suffices to show that all
+  operations achieve $O(\log \log n)$ running time. We also rely on
+  this assumption several times in our proof.
+\end{itemize}
+
+Other open problems arising from this thesis have to do with finding
+encoding arguments for new problems:
+\begin{itemize}
+\item Robin Hood hashing is another hashing solution which achieves
+  $O(\log \log n)$ worst case running time for all
+  operations~\cite{devroye:robin}. The original analysis is difficult,
+  but might lend itself to a similar kind of analysis as we used to
+  study 2-choice hashing. Indeed, when a Robin Hood hashing operation
+  takes a significant amount of time, a large witness tree is again
+  implied, which suggests an easy encoding argument. Unfortunately,
+  this approach appears to involve unwieldy hypergraph encoding.
+
+\item The analysis of random binary search trees as performed in
+  \secref{height} is closely related to the analysis of quicksort,
+  which is in turn closely related to the analysis of Hoare's
+  quickselect algorithm~\cite{hoare:find}. Therefore, we expect to be
+  able to use encoding naturally to study the performance of
+  quickselect.
+
+\item We showed in \secref{chernoff} how Chernoff's bound can be
+  exactly obtained through a natural encoding argument. Perhaps
+  encoding can be used in a similar way to give information-theoretic
+  proofs of other results in probability.
+\end{itemize}
+
+Finally, our method of encoding with Kraft's condition as in
+\chref{el} may refine existing encoding arguments to the extent that
+they become tight. This should be investigated.
+
+%The encoding argument we used to bound the probability of the
+%existence of separations in the Erd\H{o}s-R\'{e}nyi random graph also
+%gives a loose result. In this case, the deviation is caused by the
+%integral constraint on code lengths. Perhaps the continuous analogue
+%of our non-uniform encoding lemma can be used to recover the exact
+%result, as in the given proof of Chernoff's bounds.

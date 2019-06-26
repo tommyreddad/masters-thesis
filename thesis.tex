@@ -1,0 +1,85 @@
+%
+%TRY TO IMPROVE 2-CHOICE HASHING BY MORE COMPACT ENCODING OF WITNESS
+%TREE --- BIN# IS TOTALLY RANDOM, BUT BALL# IS STRICTLY DECREASING FROM
+%ROOT-TO-LEAF. SO THE BALL# TREE IS HEAP-ORDERED; HOW MANY SUCH
+%HEAP-ORDERED TREES ARE THERE??? MAYBE NOT VERY MANY!!!
+%
+%ALSO TRY TO ORGANIZE THESIS AS FOLLOWS:
+%- UEL & applications
+%  blah blah blah floors and ceilings
+%  ...
+%  turns out we don't need those and i'll tell you why later!
+%
+%- NUEL & applications
+%  blah blah blah floors and ceiling
+%  ...
+%  turns out we don't need those and i'll tell you why later!
+%
+%- Weighted EL
+
+%  try to formalize some idea of a fractional bit and rephrase the
+%  continuous weighted thing from wolfgang into an encoding lemma for
+%  fractional bits.
+%  show that all the previous results can be mad5e tighter!
+%  also tao's result on decision spaces becomes basically useless!
+
+\documentclass[12pt]{dalthesis}
+
+\usepackage[a-1b]{pdfx}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{url}
+%\usepackage{fontspec}
+\usepackage{array}
+
+\usepackage[style=numeric,firstinits=true,bibencoding=utf8,maxbibnames=99]{biblatex}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[indent,bf]{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{pgfplots}
+\usepackage{verbatim}
+\usepackage{microtype}
+\usepackage{pat}
+
+\hypersetup{colorlinks=true}
+
+\setlength\parindent{1cm}
+
+\graphicspath{{figures/}}
+\bibliography{references}
+
+\begin{document}
+%-----------------------------------------------------------------------
+
+\title{Encoding Arguments}
+\author{Tommy Reddad}
+
+\university{Carleton University}
+\address{Ottawa, Ontario}
+
+\submitdate{October 9, 2015}
+\defencemonth{November}\defenceyear{2015}
+\copyrightyear{2015}
+\degree{Master of Computer Science}
+
+\nolistoftables
+
+\frontmatter
+
+\mainmatter
+
+\input{introduction}
+\input{chapter1}
+\input{chapter2}
+\input{chapter3}
+\input{chapter4}
+
+\input{conclusion}
+
+\printbibliography[heading=bibintoc]
+
+\end{document}
